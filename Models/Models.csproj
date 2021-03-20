@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\NhanVienDAO.cs" />
     <Compile Include="EF\CTHD.cs" />
     <Compile Include="EF\DanhMucHoaDon.cs" />
     <Compile Include="EF\DanhMucSanPham.cs" />
@@ -61,9 +62,7 @@
     <Compile Include="EF\SanPham.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAO\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

@@ -44,6 +44,8 @@ namespace Models.EF
 
         public DateTime? NgaySinh { get; set; }
 
+        public bool IsDelete { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
     }
