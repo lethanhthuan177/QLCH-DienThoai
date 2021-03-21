@@ -15,6 +15,7 @@ namespace Models.EF
             HoaDons = new HashSet<HoaDon>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [StringLength(200)]
@@ -27,7 +28,8 @@ namespace Models.EF
 
         public int? SDT { get; set; }
 
-        [StringLength(10)]
+        [Key]
+        [StringLength(50)]
         public string MaNhanVien { get; set; }
 
         public DateTime? NgayVaoLam { get; set; }
@@ -44,7 +46,7 @@ namespace Models.EF
 
         public DateTime? NgaySinh { get; set; }
 
-        public bool IsDelete { get; set; }
+        public bool? IsDelete { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

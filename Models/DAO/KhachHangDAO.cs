@@ -8,61 +8,61 @@ using System.Threading.Tasks;
 
 namespace Models.DAO
 {
-    class NhanVienDAO
+    public class KhachHangDAO
     {
         private MobileShopDbContext _context = null;
 
-        public NhanVienDAO()
+        public KhachHangDAO()
         {
             _context = new MobileShopDbContext();
         }
 
-        public IEnumerable<NhanVien> PhanTrang(string searchString, int page, int pageSize)
+        public IEnumerable<KhachHang> PhanTrang(string searchString, int page, int pageSize)
         {
-            IQueryable<NhanVien> model = _context.NhanViens;
+            IQueryable<KhachHang> model = _context.KhachHangs;
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(sp => sp.TenNhanVien.Contains(searchString));
+                model = model.Where(sp => sp.TenKH.Contains(searchString));
             }
             return model.OrderBy(sp => sp.ID).ToPagedList(page, pageSize);
         }
 
         // Phương thức thêm mới nhân viên vào database 
-        public string ThemMoiNhanVien(NhanVien nv)
+        public string ThemMoiKhachHang(KhachHang kh)
         {
-            _context.NhanViens.Add(nv);
+            _context.KhachHangs.Add(kh);
             _context.SaveChanges();
-            return nv.MaNhanVien;
+            return kh.MaKhachHang;
         }
 
         // Phương thức trả về nhân viên theo mã
-        public NhanVien LayNhanVienTheoMaNhanVien(string mnv)
+        public KhachHang LayKhachHangTheoMaKhachHang(string mkh)
         {
-            return _context.NhanViens.SingleOrDefault(nv => nv.MaNhanVien == mnv);
+            return _context.KhachHangs.SingleOrDefault(kh => kh.MaKhachHang == mkh);
         }
 
-        public NhanVien LayNhanVienTheoTen(string ten)
+        public KhachHang LayKhachHangTheoTen(string ten)
         {
-            return _context.NhanViens.SingleOrDefault(nv => nv.TenNhanVien == ten);
+            return _context.KhachHangs.SingleOrDefault(kh => kh.TenKH == ten);
         }
 
-        public NhanVien XemChiTietNhanVien(int id)
+        public KhachHang XemChiTietKhachHang(int id)
         {
-            return _context.NhanViens.SingleOrDefault(nv => nv.ID == id);
+            return _context.KhachHangs.SingleOrDefault(kh => kh.ID == id);
         }
 
         // Hàm xóa nhân viên
         // Nếu xóa nhân viên thì set IsDelete = 1;
-        public bool XoaNhanVien(int id)
+        public bool XoaKhachHang(int id)
         {
             try
             {
-                var _nhanVien = _context.NhanViens.Find(id);
-                _nhanVien.IsDelete = true;
+                var _khachHang = _context.KhachHangs.Find(id);
+                _khachHang.IsDelete = true;
                 _context.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }

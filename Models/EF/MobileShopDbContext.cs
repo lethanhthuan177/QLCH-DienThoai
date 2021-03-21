@@ -26,13 +26,7 @@ namespace Models.EF
             modelBuilder.Entity<DanhMucHoaDon>()
                 .HasMany(e => e.HoaDons)
                 .WithRequired(e => e.DanhMucHoaDon)
-                .HasForeignKey(e => e.MaDMHD)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<DanhMucSanPham>()
-                .HasMany(e => e.SanPhams)
-                .WithOptional(e => e.DanhMucSanPham)
-                .HasForeignKey(e => e.MaDMSP);
 
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.TongTien)
@@ -42,20 +36,10 @@ namespace Models.EF
                 .HasOptional(e => e.CTHD)
                 .WithRequired(e => e.HoaDon);
 
-            modelBuilder.Entity<KhachHang>()
-                .HasMany(e => e.HoaDons)
-                .WithOptional(e => e.KhachHang)
-                .HasForeignKey(e => e.MaKhachHang);
-
             modelBuilder.Entity<NhanHieu>()
                 .HasMany(e => e.SanPhams)
                 .WithOptional(e => e.NhanHieu)
                 .HasForeignKey(e => e.MaNhanHieu);
-
-            modelBuilder.Entity<NhanVien>()
-                .HasMany(e => e.HoaDons)
-                .WithOptional(e => e.NhanVien)
-                .HasForeignKey(e => e.MaNhanVien);
 
             modelBuilder.Entity<SanPham>()
                 .Property(e => e.GiaNhap)
@@ -68,11 +52,6 @@ namespace Models.EF
             modelBuilder.Entity<SanPham>()
                 .Property(e => e.GiaKhuyenMai)
                 .HasPrecision(19, 4);
-
-            modelBuilder.Entity<SanPham>()
-                .HasMany(e => e.CTHDs)
-                .WithOptional(e => e.SanPham)
-                .HasForeignKey(e => e.MaSanPham);
         }
     }
 }

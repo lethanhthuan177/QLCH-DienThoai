@@ -13,10 +13,13 @@ namespace Models.EF
         public SanPham()
         {
             CTHDs = new HashSet<CTHD>();
+            HoaDons = new HashSet<HoaDon>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [Key]
         [StringLength(50)]
         public string MaSanPham { get; set; }
 
@@ -33,7 +36,8 @@ namespace Models.EF
 
         public bool? IsDelete { get; set; }
 
-        public int? MaDMSP { get; set; }
+        [StringLength(50)]
+        public string MaDMSP { get; set; }
 
         public string HinhAnh { get; set; }
 
@@ -41,7 +45,8 @@ namespace Models.EF
 
         public DateTime? NgayBan { get; set; }
 
-        public int? MaNhanHieu { get; set; }
+        [StringLength(50)]
+        public string MaNhanHieu { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? GiaKhuyenMai { get; set; }
@@ -50,6 +55,9 @@ namespace Models.EF
         public virtual ICollection<CTHD> CTHDs { get; set; }
 
         public virtual DanhMucSanPham DanhMucSanPham { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
 
         public virtual NhanHieu NhanHieu { get; set; }
     }

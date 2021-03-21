@@ -9,8 +9,10 @@ namespace Models.EF
     [Table("HoaDon")]
     public partial class HoaDon
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [Key]
         [StringLength(50)]
         public string MaHoaDon { get; set; }
 
@@ -23,13 +25,18 @@ namespace Models.EF
 
         public bool? IsDelete { get; set; }
 
-        public int? MaSanPham { get; set; }
+        [StringLength(50)]
+        public string MaSanPham { get; set; }
 
-        public int? MaNhanVien { get; set; }
+        [StringLength(50)]
+        public string MaNhanVien { get; set; }
 
-        public int? MaKhachHang { get; set; }
+        [StringLength(50)]
+        public string MaKhachHang { get; set; }
 
-        public int MaDMHD { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string MaDMHD { get; set; }
 
         public int? VAT { get; set; }
 
@@ -40,5 +47,7 @@ namespace Models.EF
         public virtual KhachHang KhachHang { get; set; }
 
         public virtual NhanVien NhanVien { get; set; }
+
+        public virtual SanPham SanPham { get; set; }
     }
 }

@@ -15,8 +15,10 @@ namespace Models.EF
             HoaDons = new HashSet<HoaDon>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [Key]
         [StringLength(50)]
         public string MaDMHD { get; set; }
 

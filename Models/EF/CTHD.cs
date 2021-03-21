@@ -10,10 +10,11 @@ namespace Models.EF
     public partial class CTHD
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MaHoaDon { get; set; }
+        [StringLength(50)]
+        public string MaHoaDon { get; set; }
 
-        public int? MaSanPham { get; set; }
+        [StringLength(50)]
+        public string MaSanPham { get; set; }
 
         public int? SoLuong { get; set; }
 
