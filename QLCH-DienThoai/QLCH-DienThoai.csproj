@@ -132,9 +132,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DanhMucHoaDonController.cs" />
     <Compile Include="Controllers\DanhMucSanPhamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\NhanHieuController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -388,12 +393,20 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\DanhMucSanPham\Index.cshtml" />
     <Content Include="Views\QuanLySanPham\Index.cshtml" />
+    <Content Include="Views\DanhMucSanPham\Create.cshtml" />
+    <Content Include="Views\DanhMucSanPham\Details.cshtml" />
+    <Content Include="Views\DanhMucSanPham\Index.cshtml" />
+    <Content Include="Views\DanhMucSanPham\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\DanhMucHoaDon\" />
+    <Folder Include="Views\KhachHang\" />
+    <Folder Include="Views\NhanHieu\" />
+    <Folder Include="Views\NhanVien\" />
+    <Folder Include="Views\SanPham\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

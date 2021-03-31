@@ -28,10 +28,10 @@ namespace Models.DAO
         }
 
         // Phương thức thêm mới nhân viên vào database 
-        public string ThemMoiNhanVien(NhanVien nv)
+        public async Task<string> ThemMoiNhanVien(NhanVien nv)
         {
             _context.NhanViens.Add(nv);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return nv.MaNhanVien;
         }
 

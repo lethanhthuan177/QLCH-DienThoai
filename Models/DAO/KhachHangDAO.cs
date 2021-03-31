@@ -46,18 +46,18 @@ namespace Models.DAO
             return _context.KhachHangs.SingleOrDefault(kh => kh.TenKH == ten);
         }
 
-        public KhachHang XemChiTietKhachHang(int id)
+        public KhachHang XemChiTietKhachHang(string id)
         {
-            return _context.KhachHangs.SingleOrDefault(kh => kh.ID == id);
+            return _context.KhachHangs.SingleOrDefault(kh => kh.MaKhachHang == id);
         }
 
         // Hàm xóa nhân viên
         // Nếu xóa nhân viên thì set IsDelete = 1;
-        public bool XoaKhachHang(int id)
+        public bool XoaKhachHang(string id)
         {
             try
             {
-                var _khachHang = _context.KhachHangs.Find(id);
+                var _khachHang = _context.KhachHangs.SingleOrDefault(x=>x.MaKhachHang == id);
                 _khachHang.IsDelete = true;
                 _context.SaveChanges();
                 return true;
@@ -66,6 +66,29 @@ namespace Models.DAO
             {
                 return false;
             }
+        }
+
+        public async Task<bool> CapNhat(KhachHang kh)
+        {
+            try
+            {
+                var _khachHang = _context.KhachHangs.Find(kh.MaKhachHang);
+                _khachHang.TenKH = kh.TenKH;
+                _khachHang.MaKhachHang = kh.MaKhachHang;
+                _khachHang.GhiChu = kh.GhiChu;
+                _khachHang.GioiTinh = kh.GioiTinh;
+                _khachHang.NgaySinh = kh.NgaySinh;
+                _khachHang.SDT = kh.SDT;
+                _khachHang.Email = kh.Email;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        
         }
     }
 }

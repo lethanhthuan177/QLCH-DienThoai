@@ -29,7 +29,7 @@ namespace Models.DAO
         }
 
         // Phương thức thêm mới nhân viên vào database 
-        public string ThemMoiKhachHang(DanhMucHoaDon dmhd)
+        public string ThemMoiDanhMucSanPham(DanhMucHoaDon dmhd)
         {
             _context.DanhMucHoaDons.Add(dmhd);
             _context.SaveChanges();
@@ -54,16 +54,33 @@ namespace Models.DAO
 
         // Hàm xóa nhân viên
         // Nếu xóa nhân viên thì set IsDelete = 1;
-        public bool XoaDanhMucHoaDon(int id)
+        public bool XoaDanhMucHoaDon(string id)
         {
             try
             {
-                var _khachHang = _context.DanhMucHoaDons.Find(id);
+                var _khachHang = _context.DanhMucHoaDons.SingleOrDefault(x=>x.MaDMHD == id);
                 _khachHang.IsDelete = true;
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool CapNhat(DanhMucHoaDon dmhd)
+        {
+            try
+            {
+                var _danhMucHoaDon = _context.DanhMucHoaDons.Find(dmhd.ID);
+                _danhMucHoaDon.MaDMHD = dmhd.MaDMHD;
+                _danhMucHoaDon.TenDMHD = dmhd.TenDMHD;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }

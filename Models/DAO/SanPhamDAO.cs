@@ -46,23 +46,47 @@ namespace Models.DAO
             return _context.SanPhams.SingleOrDefault(sp => sp.MaSanPham == maSP);
         }
 
-        public SanPham XemChiTietSanPham(int id)
+        public SanPham XemChiTietSanPham(string id)
         {
-            return _context.SanPhams.SingleOrDefault(sp => sp.ID == id);
+            return _context.SanPhams.SingleOrDefault(sp => sp.MaDMSP == id);
         }
 
         // Hàm xóa nhân viên
         // Nếu xóa nhân viên thì set IsDelete = 1;
-        public bool XoaSanPham(int id)
+        public bool XoaSanPham(string id)
         {
             try
             {
-                var _sanPham = _context.SanPhams.Find(id);
+                var _sanPham = _context.SanPhams.SingleOrDefault(x=>x.MaSanPham == id);
                 _sanPham.IsDelete = true;
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool CapNhat(SanPham sp)
+        {
+            try
+            {
+                var _sanPham = _context.SanPhams.Find(sp.MaSanPham);
+                _sanPham.TenSanPham = sp.TenSanPham;
+                _sanPham.GiaBan = sp.GiaBan;
+                _sanPham.GiaNhap = sp.GiaNhap;
+                _sanPham.GiaKhuyenMai = sp.GiaKhuyenMai;
+                _sanPham.HinhAnh = sp.HinhAnh;
+                _sanPham.NhanHieu = sp.NhanHieu;
+                _sanPham.MaNhanHieu = sp.MaNhanHieu;
+                _sanPham.SoLuong = sp.SoLuong;
+                _sanPham.MaDMSP = sp.MaDMSP;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }

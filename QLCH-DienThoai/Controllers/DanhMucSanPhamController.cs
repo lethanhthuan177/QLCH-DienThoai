@@ -1,4 +1,5 @@
 ﻿using Models.DAO;
+using Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace QLCH_DienThoai.Controllers
     public class DanhMucSanPhamController : Controller
     {
         // GET: DanhMucSanPham
-        public ActionResult Index(string searchString,int page = 1,int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             var danhMucSanPham = new DanhMucSanPhamDAO();
             var modelDanhMuc = danhMucSanPham.PhanTrang(searchString, page, pageSize);
@@ -19,9 +20,11 @@ namespace QLCH_DienThoai.Controllers
         }
 
         // GET: DanhMucSanPham/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var danhMucSanPham = new DanhMucSanPhamDAO().XemChiTietDanhMucSanPham(id);
+
+            return View(danhMucSanPham);
         }
 
         // GET: DanhMucSanPham/Create
@@ -32,40 +35,55 @@ namespace QLCH_DienThoai.Controllers
 
         // POST: DanhMucSanPham/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(DanhMucSanPham dmsp)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            // TODO: Add insert logic here
+            if (ModelState.IsValid)
             {
-                return View();
+                var danhMucSanPhamDao = new DanhMucSanPhamDAO();
+
+                string maDanhMucSanPham = danhMucSanPhamDao.ThemMoiDanhMucSanPham(dmsp);
+
+                if (!string.IsNullOrEmpty(maDanhMucSanPham))
+                {
+                    return RedirectToAction("Index", "DanhMucSanPham");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm thất bại");
+                }
             }
+            return View(dmsp);
+
         }
 
         // GET: DanhMucSanPham/Edit/5
-        public ActionResult Edit(int id)
+        // mdm : mã danh mục;
+        [HttpGet]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var danhMucSanPham = new DanhMucSanPhamDAO().ViewDetails(id);
+
+            return View(danhMucSanPham);
         }
 
         // POST: DanhMucSanPham/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(DanhMucSanPham danhMucSanPham)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var _danhMucKhoaHocDao = new DanhMucSanPhamDAO();
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var kq = _danhMucKhoaHocDao.CapNhat(danhMucSanPham);
+            if (kq)
             {
-                return View();
+                return RedirectToAction("Index", "DanhMucSanPham");
             }
+            else
+            {
+                ModelState.AddModelError("", "Cập nhật danh mục sản phẩm lỗi");
+            }
+            return View(danhMucSanPham);
         }
 
         // GET: DanhMucSanPham/Delete/5
@@ -75,14 +93,15 @@ namespace QLCH_DienThoai.Controllers
         }
 
         // POST: DanhMucSanPham/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpDelete]
+        public ActionResult Delete(string id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new DanhMucSanPhamDAO().XoaDanhMucSanPham(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "DanhMucSanPham");
             }
             catch
             {

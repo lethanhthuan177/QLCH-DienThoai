@@ -28,7 +28,7 @@ namespace Models.DAO
         }
 
         // Phương thức thêm mới nhân viên vào database 
-        public string ThemMoiSanPham(NhanHieu nh)
+        public string ThemMoiNhanHieu(NhanHieu nh)
         {
             _context.NhanHieux.Add(nh);
             _context.SaveChanges();
@@ -46,9 +46,9 @@ namespace Models.DAO
             return _context.NhanHieux.SingleOrDefault(nh => nh.MaNhanHien == maHD);
         }
 
-        public NhanHieu XemChiTietSanPham(int id)
+        public NhanHieu XemChiTietNhanHieu(string id)
         {
-            return _context.NhanHieux.SingleOrDefault(nh => nh.ID == id);
+            return _context.NhanHieux.SingleOrDefault(nh => nh.MaNhanHien == id);
         }
 
         // Hàm xóa nhân viên
@@ -63,6 +63,24 @@ namespace Models.DAO
                 return true;
             }
             catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool CapNhat(NhanHieu nh)
+        {
+            try
+            {
+                var _nh = _context.NhanHieux.SingleOrDefault(x => x.MaNhanHien == nh.MaNhanHien);
+                _nh.TenNhanHien = nh.TenNhanHien;
+                _nh.MaNhanHien = nh.MaNhanHien;
+                _nh.GhiChu = nh.GhiChu;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }
